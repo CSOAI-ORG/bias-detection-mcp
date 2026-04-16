@@ -1,0 +1,54 @@
+name: bias-detection-mcp
+description: 'AI Bias Detection and Fairness Assessment for AI agents. Capabilities:
+  quick bias scan, demographic bias detection, fairness metrics, mitigation recommendations,
+  regulatory compliance check. Built by MEOK AI Labs.'
+version: 1.0.0
+tools:
+- name: quick_scan
+  description: Describe an AI system, get instant bias risk assessment. No API key required.
+  parameters:
+  - name: description
+    type: string
+    required: true
+- name: detect_bias
+  description: Analyze text for demographic bias patterns, stereotyping, and unfair language.
+  parameters:
+  - name: model_output
+    type: string
+    required: true
+  - name: protected_attributes
+    type: string
+    required: false
+  - name: api_key
+    type: string
+    required: false
+- name: fairness_metrics
+  description: Calculate fairness metrics (disparate impact, equalized odds, statistical parity) from prediction data.
+  parameters:
+  - name: predictions
+    type: string
+    required: true
+  - name: ground_truth
+    type: string
+    required: false
+  - name: api_key
+    type: string
+    required: false
+- name: mitigation_recommendations
+  description: Get detailed remediation steps for a specific type of AI bias.
+  parameters:
+  - name: bias_type
+    type: string
+    required: true
+  - name: api_key
+    type: string
+    required: false
+- name: regulatory_check
+  description: Check bias requirements against EU AI Act Article 10 and NIST AI RMF MAP requirements.
+  parameters:
+  - name: jurisdiction
+    type: string
+    required: false
+  - name: api_key
+    type: string
+    required: false

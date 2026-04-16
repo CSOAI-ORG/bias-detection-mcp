@@ -1,0 +1,68 @@
+{
+  "name": "bias-detection-mcp",
+  "description": "AI Bias Detection and Fairness Assessment for AI agents. Capabilities: quick bias scan, demographic bias detection, fairness metrics, mitigation recommendations, regulatory compliance. Built by MEOK AI Labs.",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "quick_scan",
+      "description": "Describe an AI system, get instant bias risk assessment. No API key required.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" }
+        },
+        "required": ["description"]
+      }
+    },
+    {
+      "name": "detect_bias",
+      "description": "Analyze text for demographic bias patterns, stereotyping, and unfair language.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "model_output": { "type": "string" },
+          "protected_attributes": { "type": "string" },
+          "api_key": { "type": "string" }
+        },
+        "required": ["model_output"]
+      }
+    },
+    {
+      "name": "fairness_metrics",
+      "description": "Calculate fairness metrics from prediction data.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "predictions": { "type": "string" },
+          "ground_truth": { "type": "string" },
+          "api_key": { "type": "string" }
+        },
+        "required": ["predictions"]
+      }
+    },
+    {
+      "name": "mitigation_recommendations",
+      "description": "Get detailed remediation steps for a specific type of AI bias.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "bias_type": { "type": "string" },
+          "api_key": { "type": "string" }
+        },
+        "required": ["bias_type"]
+      }
+    },
+    {
+      "name": "regulatory_check",
+      "description": "Check bias requirements against EU AI Act Article 10 and NIST AI RMF.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "jurisdiction": { "type": "string" },
+          "api_key": { "type": "string" }
+        },
+        "required": []
+      }
+    }
+  ]
+}
