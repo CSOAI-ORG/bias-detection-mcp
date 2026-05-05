@@ -4,7 +4,7 @@
 
 # Bias Detection Mcp
 
-**Immutable audit trails with SHA-256 hash chain verification for compliance certifications**
+**The only MCP server for AI bias detection and fairness assessment.**
 
 [![npm version](https://img.shields.io/npm/v/@meok-ai/bias-detection-mcp)](https://www.npmjs.com/package/@meok-ai/bias-detection-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
