@@ -1,66 +1,38 @@
-# AI Bias Detection MCP Server
+<div align="center">
 
-By [MEOK AI Labs](https://meok.ai) | The only MCP server for AI bias detection and fairness assessment.
+[![GitHub stars](https://img.shields.io/github/stars/CSOAI-ORG/bias-detection-mcp)](https://github.com/CSOAI-ORG/bias-detection-mcp/stargazers)
 
-## Quick Start
+# Bias Detection Mcp
+
+**Immutable audit trails with SHA-256 hash chain verification for compliance certifications**
+
+[![npm version](https://img.shields.io/npm/v/@meok-ai/bias-detection-mcp)](https://www.npmjs.com/package/@meok-ai/bias-detection-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![MEOK AI Labs](https://img.shields.io/badge/MEOK_AI_Labs-255+_servers-purple)](https://meok.ai)
+
+[Installation](#installation) · [Docs](https://csoai.org) · [Report Bug](https://github.com/CSOAI-ORG/bias-detection-mcp/issues)
+
+</div>
+
+---
+
+## Installation
 
 ```bash
 pip install bias-detection-mcp
-bias-detection-mcp
+# or
+npm install -g @meok-ai/bias-detection-mcp
 ```
 
-Or run directly:
+## Quick Start
 
-```bash
-pip install mcp
-python server.py
-```
+See the project repository for full documentation and examples.
 
-## Claude Desktop Config
+## Enterprise Support
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "bias-detection": {
-      "command": "bias-detection-mcp"
-    }
-  }
-}
-```
-
-## Tools
-
-| Tool | Description | API Key Required |
-|------|-------------|-----------------|
-| `quick_scan` | Describe an AI system, get instant bias risk assessment | No |
-| `detect_bias` | Analyze text for demographic bias patterns | No (free tier) |
-| `fairness_metrics` | Calculate disparate impact, equalized odds, statistical parity | No (free tier) |
-| `mitigation_recommendations` | Get remediation steps for specific bias types | No (free tier) |
-| `regulatory_check` | Check bias compliance against EU AI Act / NIST AI RMF | No (free tier) |
-
-## Free Tier
-
-10 calls/day per tool, no API key required. Upgrade to Pro ($29/mo) for unlimited access at [meok.ai](https://meok.ai/mcp/bias-detection/pro).
-
-## Examples
-
-### Quick Scan (zero config)
-```
-quick_scan("Hiring screening tool that ranks candidates based on CV keywords and university name")
-```
-
-### Detect Bias in Model Output
-```
-detect_bias("Male candidates are typically more suited for engineering roles", "gender")
-```
-
-### Calculate Fairness Metrics
-```
-fairness_metrics("male:1,male:1,male:0,female:0,female:0,female:1")
-```
+- 📧 nicholas@csoai.org
+- 🌐 [CSOAI.org](https://csoai.org)
 
 ## License
 
-MIT - Built by [MEOK AI Labs](https://meok.ai)
+MIT © [CSOAI](https://csoai.org)
