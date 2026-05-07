@@ -303,7 +303,24 @@ mcp = FastMCP(
 # ---------------------------------------------------------------------------
 @mcp.tool()
 def quick_scan(description: str) -> dict:
-    """Describe an AI system in one sentence -> instant bias risk assessment. No API key required."""
+    """Describe an AI system in one sentence -> instant bias risk assessment. No API key required.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need to assess, audit, or verify compliance
+        requirements. Ideal for gap analysis, readiness checks, and generating
+        compliance documentation.
+
+    When NOT to use:
+        Do not use as a substitute for qualified legal counsel. This tool
+        provides technical compliance guidance, not legal advice.
+    """
     limit_err = _check_rate_limit("quick_scan_anonymous")
     if limit_err:
         return {"error": "rate_limited", "message": limit_err}
@@ -413,6 +430,21 @@ def detect_bias(
         model_output: The AI-generated text to analyze for bias.
         protected_attributes: Comma-separated list of attributes to check (e.g. "race,gender,age"). Leave empty for auto-detection.
         api_key: Optional MEOK API key for pro tier.
+
+    Behavior:
+        This tool generates structured output without modifying external systems.
+        Output is deterministic for identical inputs. No side effects.
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need to assess, audit, or verify compliance
+        requirements. Ideal for gap analysis, readiness checks, and generating
+        compliance documentation.
+
+    When NOT to use:
+        Do not use as a substitute for qualified legal counsel. This tool
+        provides technical compliance guidance, not legal advice.
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
@@ -518,6 +550,22 @@ def fairness_metrics(
         predictions: Comma-separated group:prediction pairs (e.g. "male:1,female:0,male:1").
         ground_truth: Optional comma-separated group:actual pairs for outcome-based metrics.
         api_key: Optional MEOK API key for pro tier.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need to assess, audit, or verify compliance
+        requirements. Ideal for gap analysis, readiness checks, and generating
+        compliance documentation.
+
+    When NOT to use:
+        Do not use as a substitute for qualified legal counsel. This tool
+        provides technical compliance guidance, not legal advice.
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
@@ -672,6 +720,22 @@ def mitigation_recommendations(
         bias_type: Type of bias to get recommendations for. Options: selection, measurement,
             confirmation, automation, aggregation, representation, evaluation, historical.
         api_key: Optional MEOK API key for pro tier.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need to assess, audit, or verify compliance
+        requirements. Ideal for gap analysis, readiness checks, and generating
+        compliance documentation.
+
+    When NOT to use:
+        Do not use as a substitute for qualified legal counsel. This tool
+        provides technical compliance guidance, not legal advice.
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
@@ -758,6 +822,22 @@ def regulatory_check(
     Args:
         jurisdiction: Jurisdiction to check against. Options: eu, us_nist, uk, all.
         api_key: Optional MEOK API key for pro tier.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need to assess, audit, or verify compliance
+        requirements. Ideal for gap analysis, readiness checks, and generating
+        compliance documentation.
+
+    When NOT to use:
+        Do not use as a substitute for qualified legal counsel. This tool
+        provides technical compliance guidance, not legal advice.
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
