@@ -1,45 +1,59 @@
-[![bias-detection-mcp MCP server](https://glama.ai/mcp/servers/CSOAI-ORG/bias-detection-mcp/badges/score.svg)](https://glama.ai/mcp/servers/CSOAI-ORG/bias-detection-mcp)
-[![MCP Registry](https://img.shields.io/badge/MCP_Registry-Published-green)](https://registry.modelcontextprotocol.io)
-[![PyPI](https://img.shields.io/pypi/v/bias-detection-mcp)](https://pypi.org/project/bias-detection-mcp/)
-
-[![bias-detection-mcp MCP server](https://glama.ai/mcp/servers/CSOAI-ORG/bias-detection-mcp/badges/card.svg)](https://glama.ai/mcp/servers/CSOAI-ORG/bias-detection-mcp)
-
 <div align="center">
 
-[![GitHub stars](https://img.shields.io/github/stars/CSOAI-ORG/bias-detection-mcp)](https://github.com/CSOAI-ORG/bias-detection-mcp/stargazers)
+# Bias Detection MCP
 
-# Bias Detection Mcp
+**MCP server for bias detection mcp operations**
 
-**The only MCP server for AI bias detection and fairness assessment.**
-
-[![npm version](https://img.shields.io/npm/v/@meok-ai/bias-detection-mcp)](https://www.npmjs.com/package/@meok-ai/bias-detection-mcp)
+[![PyPI](https://img.shields.io/pypi/v/meok-bias-detection-mcp)](https://pypi.org/project/meok-bias-detection-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![MEOK AI Labs](https://img.shields.io/badge/MEOK_AI_Labs-255+_servers-purple)](https://meok.ai)
-
-[Installation](#installation) · [Docs](https://csoai.org) · [Report Bug](https://github.com/CSOAI-ORG/bias-detection-mcp/issues)
+[![MEOK AI Labs](https://img.shields.io/badge/MEOK_AI_Labs-MCP_Server-purple)](https://meok.ai)
 
 </div>
 
----
+## Overview
+
+Bias Detection MCP provides AI-powered tools via the Model Context Protocol (MCP).
+
+## Tools
+
+| Tool | Description |
+|------|-------------|
+| `quick_scan` | Describe an AI system in one sentence -> instant bias risk assessment. No API ke |
+| `detect_bias` | Analyze text for demographic bias patterns, stereotyping, and unfair language. |
+| `fairness_metrics` | Calculate fairness metrics from prediction data. Input format: comma-separated v |
+| `mitigation_recommendations` | Get detailed remediation steps for a specific type of AI bias. |
+| `regulatory_check` | Check bias requirements against EU AI Act Article 10 and NIST AI RMF MAP require |
 
 ## Installation
 
 ```bash
-pip install bias-detection-mcp
-# or
-npm install -g @meok-ai/bias-detection-mcp
+pip install meok-bias-detection-mcp
 ```
 
-## Quick Start
+## Usage with Claude Desktop
 
-See the project repository for full documentation and examples.
+Add to your Claude Desktop MCP config (`claude_desktop_config.json`):
 
-## Enterprise Support
+```json
+{
+  "mcpServers": {
+    "bias-detection-mcp": {
+      "command": "python",
+      "args": ["-m", "meok_bias_detection_mcp.server"]
+    }
+  }
+}
+```
 
-- 📧 nicholas@csoai.org
-- 🌐 [CSOAI.org](https://csoai.org)
+## Usage with FastMCP
+
+```python
+from mcp.server.fastmcp import FastMCP
+
+# This server exposes 5 tool(s) via MCP
+# See server.py for full implementation
+```
 
 ## License
 
-MIT © [CSOAI](https://csoai.org)
-<!-- mcp-name: io.github.CSOAI-ORG/bias-detection-mcp -->
+MIT © [MEOK AI Labs](https://meok.ai)
