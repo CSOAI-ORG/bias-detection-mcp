@@ -54,6 +54,8 @@ from mcp.server.fastmcp import FastMCP
 # See server.py for full implementation
 ```
 
+> **If this tool helps your compliance workflow, please [star this repo](https://github.com/CSOAI-ORG/bias-detection-mcp/stargazers)** — it helps other teams find it.
+
 ## License
 
 MIT © [MEOK AI Labs](https://meok.ai)
