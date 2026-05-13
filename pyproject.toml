@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bias-detection-mcp"
-version = "1.0.5"
+version = "1.1.1"
 readme = "README.md"
 description = "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic analysis, fairness metrics, mitigation strategies, EU AI Act Article 10 compliance. Zero-config free tier. Built by MEOK AI Labs."
 license = {file = "LICENSE"}
 requires-python = ">=3.10"
-authors = [{name = "MEOK AI Labs", email = "nicholas@meok.ai"}]
+authors = [{name = "MEOK AI Labs", email = "hello@meok.ai"}]
 keywords = ["mcp", "ai-bias", "fairness", "ai-governance", "meok"]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -21,7 +21,7 @@ dependencies = ["mcp>=1.0.0"]
 
 [project.urls]
 Homepage = "https://meok.ai"
-Repository = "https://github.com/CSOAI-ORG/bias-detection-mcp"
+Repository = "https://github.com/meok-ai-labs/bias-detection-mcp"
 
 [tool.hatch.build.targets.wheel]
 packages = ["."]

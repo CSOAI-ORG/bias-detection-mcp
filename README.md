@@ -10,6 +10,18 @@
 
 </div>
 
+
+## Quick Install
+
+| Client | Install |
+|--------|---------|
+| **Claude Desktop** | [![Install in Claude](https://img.shields.io/badge/Install-Claude-blue)](https://claude.ai) |
+| **Cursor** | [![Install in Cursor](https://img.shields.io/badge/Install-Cursor-black)](https://cursor.com) |
+| **VS Code** | [![Install in VS Code](https://img.shields.io/badge/Install-VS_Code-blue)](https://code.visualstudio.com) |
+| **Windsurf** | [![Install in Windsurf](https://img.shields.io/badge/Install-Windsurf-purple)](https://codeium.com/windsurf) |
+| **Docker** | `docker run -p 8000:8000 bias-detection-mcp` |
+| **pip** | `pip install bias-detection-mcp` |
+
 ## Overview
 
 Bias Detection MCP provides AI-powered tools via the Model Context Protocol (MCP).
@@ -54,7 +66,7 @@ from mcp.server.fastmcp import FastMCP
 # See server.py for full implementation
 ```
 
-> **If this tool helps your compliance workflow, please [star this repo](https://github.com/CSOAI-ORG/bias-detection-mcp/stargazers)** — it helps other teams find it.
+> **If this tool helps your compliance workflow, please [star this repo](https://github.com/meok-ai-labs/bias-detection-mcp/stargazers)** — it helps other teams find it.
 
 ## License
 

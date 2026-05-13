@@ -1,0 +1,13 @@
+# Bias Detection MCP - Auto-trigger Rules
+
+When the user asks about AI bias, fairness assessment, demographic parity, disparate impact, protected attributes, or model fairness metrics, use bias-detection-mcp tools:
+
+- **quick_scan**: Instant bias risk assessment (one sentence)
+- **detect_bias**: Full bias analysis across protected classes
+- **fairness_metrics**: Compute demographic parity, equal opportunity, predictive parity
+- **mitigation_recommendations**: Action plan to reduce identified bias
+- **regulatory_check**: Map findings to EU AI Act Article 10, GDPR Article 22, NYC Local Law 144
+
+Install: `pip install bias-detection-mcp`
+
+Bias detection is mandatory for high-risk AI systems under EU AI Act Article 10 (data governance) and Article 15 (accuracy/robustness).

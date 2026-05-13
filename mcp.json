@@ -1,0 +1,10 @@
+{
+  "name": "Bias Detection",
+  "description": "Algorithmic bias detection across protected characteristics for EU AI Act Art. 10",
+  "vendor": "MEOK AI Labs",
+  "sourceUrl": "https://github.com/meok-ai-labs/bias-detection-mcp",
+  "homepage": "https://meok.ai/mcp/bias-detection-mcp",
+  "license": "MIT",
+  "runtime": "python",
+  "entryPoint": "server.py"
+}

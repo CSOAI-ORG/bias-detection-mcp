@@ -33,8 +33,7 @@ try:
 except ImportError:
     _AUTH_ENGINE_AVAILABLE = False
 
-    def _shared_check_access(api_key=""):
-        # type: (str) -> Tuple[bool, str, str]
+    def _shared_check_access(api_key: str = ""):
         """Fallback when shared auth engine is not available."""
         if _MEOK_API_KEY and api_key and api_key == _MEOK_API_KEY:
             return True, "OK", "pro"
@@ -462,10 +461,52 @@ def detect_bias(
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return {"error": msg, "upgrade_url": "https://meok.ai/pricing"}
+        return {"error": msg, "upgrade_url": "https://meok.ai/api-keys"}
     limit_err = _check_rate_limit("detect_bias", tier)
     if limit_err:
         return {"error": "rate_limited", "message": limit_err}
+
+    # GATE: Detailed bias analysis is a Pro feature
+    if tier == "free":
+        # Give a quick teaser to show value
+        quick_score, _ = _score_bias_risk(model_output)
+        quick_attrs = _detect_protected_attributes(model_output)
+        if quick_score >= 0.7:
+            teaser_level = "HIGH"
+        elif quick_score >= 0.4:
+            teaser_level = "MODERATE"
+        elif quick_score >= 0.15:
+            teaser_level = "LOW"
+        else:
+            teaser_level = "MINIMAL"
+        return {
+            "error": "pro_feature",
+            "message": (
+                "Detailed bias analysis requires MEOK Pro. "
+                "This tool performs sentence-level bias scoring, pattern matching across "
+                "8 bias types, protected attribute detection with EU Charter references, "
+                "and generates actionable remediation recommendations."
+            ),
+            "preview": {
+                "quick_bias_level": teaser_level,
+                "quick_bias_score": round(quick_score, 2),
+                "protected_attributes_found": len(quick_attrs),
+                "analysis_sections": [
+                    "Sentence-level bias scoring with flagged excerpts",
+                    "8-type bias classification (selection, measurement, confirmation, etc.)",
+                    "Protected attribute mapping to EU Charter Articles",
+                    "Pattern match breakdown (stereotyping, essentialising, othering, etc.)",
+                    "Actionable remediation recommendations",
+                ],
+                "estimated_value": "Equivalent to GBP 500-2,000 bias audit",
+            },
+            "upgrade": {
+                "url": "https://meok.ai/api-keys",
+                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "price": "From GBP 29/month -- includes unlimited bias analysis",
+            },
+            "free_alternative": "Use quick_scan (free, no API key needed) for instant risk assessment, or regulatory_check for compliance requirements.",
+        }
 
     # Score for bias patterns
     bias_score, pattern_matches = _score_bias_risk(model_output)
@@ -583,10 +624,46 @@ def fairness_metrics(
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return {"error": msg, "upgrade_url": "https://meok.ai/pricing"}
+        return {"error": msg, "upgrade_url": "https://meok.ai/api-keys"}
     limit_err = _check_rate_limit("fairness_metrics", tier)
     if limit_err:
         return {"error": "rate_limited", "message": limit_err}
+
+    # GATE: Fairness metrics calculation is a Pro feature
+    if tier == "free":
+        # Count groups from input to show preview value
+        groups_seen = set()
+        for pair in predictions.split(","):
+            pair = pair.strip()
+            if ":" in pair:
+                groups_seen.add(pair.rsplit(":", 1)[0].strip().lower())
+        return {
+            "error": "pro_feature",
+            "message": (
+                "Fairness metrics calculation requires MEOK Pro. "
+                "This tool computes disparate impact ratio (4/5ths rule), statistical parity, "
+                "equalized odds (TPR/FPR per group), and calibration metrics -- with "
+                "EU AI Act Article 10 compliance mapping."
+            ),
+            "preview": {
+                "groups_detected": list(groups_seen),
+                "metrics_computed": [
+                    "Disparate impact ratio (EEOC 4/5ths rule)",
+                    "Statistical parity difference",
+                    "Equalized odds (TPR gap + FPR gap)",
+                    "Per-group selection rates",
+                    "Per-group accuracy, TPR, and FPR",
+                ],
+                "compliance_mapping": "EU AI Act Article 10(2)(f), 10(3), 10(4), 15(1)",
+                "estimated_value": "Equivalent to GBP 1,000-3,000 fairness audit",
+            },
+            "upgrade": {
+                "url": "https://meok.ai/api-keys",
+                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "price": "From GBP 29/month -- includes unlimited fairness metrics",
+            },
+            "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
+        }
 
     # Parse predictions
     group_preds = defaultdict(list)  # type: Dict[str, List[int]]
@@ -767,10 +844,45 @@ def mitigation_recommendations(
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return {"error": msg, "upgrade_url": "https://meok.ai/pricing"}
+        return {"error": msg, "upgrade_url": "https://meok.ai/api-keys"}
     limit_err = _check_rate_limit("mitigation", tier)
     if limit_err:
         return {"error": "rate_limited", "message": limit_err}
+
+    # GATE: Mitigation recommendations is a Pro feature
+    if tier == "free":
+        bias_key_check = bias_type.strip().lower()
+        binfo_check = BIAS_TYPES.get(bias_key_check)
+        return {
+            "error": "pro_feature",
+            "message": (
+                "Detailed bias mitigation recommendations require MEOK Pro. "
+                "This tool provides pre-processing, in-processing, and post-processing "
+                "remediation strategies, EU AI Act documentation requirements, "
+                "monitoring plans, and recommended tools/frameworks."
+            ),
+            "preview": {
+                "bias_type_requested": bias_type,
+                "bias_type_valid": bias_key_check in BIAS_TYPES,
+                "severity": binfo_check["severity"] if binfo_check else "unknown",
+                "remediation_sections": [
+                    "Bias-type-specific mitigation strategies (5 per type)",
+                    "Pre-processing remediation (data-level fixes)",
+                    "In-processing remediation (model-level fixes)",
+                    "Post-processing remediation (output-level fixes)",
+                    "EU AI Act documentation requirements (Annex IV)",
+                    "Ongoing monitoring plan (Article 72)",
+                    "Recommended tools and frameworks (AIF360, Fairlearn, etc.)",
+                ],
+                "estimated_value": "Equivalent to GBP 500-2,000 bias remediation consultancy",
+            },
+            "upgrade": {
+                "url": "https://meok.ai/api-keys",
+                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "price": "From GBP 29/month -- includes unlimited remediation plans",
+            },
+            "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
+        }
 
     bias_key = bias_type.strip().lower()
 
@@ -883,7 +995,7 @@ def regulatory_check(
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return {"error": msg, "upgrade_url": "https://meok.ai/pricing"}
+        return {"error": msg, "upgrade_url": "https://meok.ai/api-keys"}
     limit_err = _check_rate_limit("regulatory_check", tier)
     if limit_err:
         return {"error": "rate_limited", "message": limit_err}
