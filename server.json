@@ -1,18 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "meok-ai-labs/bias-detection-mcp",
-  "version": "1.0.0",
-  "description": "Bias Detection MCP Server by MEOK AI Labs",
+  "name": "io.github.CSOAI-ORG/bias-detection-mcp",
+  "version": "1.1.2",
+  "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic ana...",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/meok-ai-labs/bias-detection-mcp",
-    "source": "https://github.com/meok-ai-labs/bias-detection-mcp"
+    "url": "https://github.com/CSOAI-ORG/bias-detection-mcp",
+    "source": "github"
   },
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "bias-detection-mcp",
-      "version": "1.0.0",
+      "version": "1.1.2",
       "runtimeHint": "python",
       "transport": {
         "type": "stdio"
