@@ -38,7 +38,7 @@ except ImportError:
             return True, "OK", "pro"
         if _MEOK_API_KEY and api_key and api_key != _MEOK_API_KEY:
             return False, "Invalid API key. Get one at https://meok.ai/api-keys", "free"
-        return True, "OK", "free"
+        return True, "OK, Pro at https://www.csoai.org/checkout", "free"
 
 
 def check_access(api_key=""):
@@ -501,7 +501,7 @@ def detect_bias(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
                 "price": "From GBP 29/month -- includes unlimited bias analysis",
             },
             "free_alternative": "Use quick_scan (free, no API key needed) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -658,7 +658,7 @@ def fairness_metrics(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
                 "price": "From GBP 29/month -- includes unlimited fairness metrics",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -877,7 +877,7 @@ def mitigation_recommendations(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/14A4gB3K4eUWgYR56o8k836",
+                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
                 "price": "From GBP 29/month -- includes unlimited remediation plans",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
