@@ -1,0 +1,31 @@
+{
+  "name": "bias-detection-mcp",
+  "title": "Bias Detection Mcp",
+  "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic analysis, fairness metrics, mitigation strategies, EU AI Act Article 10 compliance. Zero-config free tier. Built by MEOK AI Labs.",
+  "version": "1.2.0",
+  "homepage": "https://meok.ai",
+  "license": "MIT",
+  "transport": {
+    "type": "stdio"
+  },
+  "tools": [
+    {
+      "name": "quick_scan"
+    },
+    {
+      "name": "detect_bias"
+    },
+    {
+      "name": "fairness_metrics"
+    },
+    {
+      "name": "mitigation_recommendations"
+    },
+    {
+      "name": "regulatory_check"
+    },
+    {
+      "name": "analyze_demographic_parity"
+    }
+  ]
+}

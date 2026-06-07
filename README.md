@@ -124,3 +124,28 @@ buyers can deploy without vendor-lock-in objections.
 
 <!-- BUY-LADDER:END -->
 
+
+
+## Configuration
+
+Add to your `claude_desktop_config.json` (Claude Desktop) or your MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "bias-detection-mcp": {
+      "command": "uvx",
+      "args": ["bias-detection-mcp"]
+    }
+  }
+}
+```
+
+Or: `pip install bias-detection-mcp` then run the `bias-detection-mcp` command (stdio transport).
+
+## Examples
+
+Once configured, ask your assistant, for example:
+- "Use `quick_scan` to …"
+- "Use `detect_bias` to …"
+- "Use `fairness_metrics` to …"
