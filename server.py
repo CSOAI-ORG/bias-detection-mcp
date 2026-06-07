@@ -501,7 +501,7 @@ def detect_bias(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
+                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
                 "price": "From GBP 29/month -- includes unlimited bias analysis",
             },
             "free_alternative": "Use quick_scan (free, no API key needed) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -658,7 +658,7 @@ def fairness_metrics(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
+                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
                 "price": "From GBP 29/month -- includes unlimited fairness metrics",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -877,7 +877,7 @@ def mitigation_recommendations(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/00wfZjcgAeUW4c5cyQ8k90K",
+                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
                 "price": "From GBP 29/month -- includes unlimited remediation plans",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
