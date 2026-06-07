@@ -1,0 +1,77 @@
+{
+  "name": "bias-detection-mcp",
+  "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic ana...",
+  "url": "https://proofof.ai/scorecard/bias-detection-mcp.html",
+  "version": "1.2.0",
+  "protocolVersion": "0.2.0",
+  "provider": {
+    "organization": "MEOK AI Labs",
+    "url": "https://meok.ai"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "text"
+  ],
+  "defaultOutputModes": [
+    "text"
+  ],
+  "skills": [
+    {
+      "id": "quick_scan",
+      "name": "Quick Scan",
+      "description": "quick_scan via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    },
+    {
+      "id": "detect_bias",
+      "name": "Detect Bias",
+      "description": "detect_bias via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    },
+    {
+      "id": "fairness_metrics",
+      "name": "Fairness Metrics",
+      "description": "fairness_metrics via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    },
+    {
+      "id": "mitigation_recommendations",
+      "name": "Mitigation Recommendations",
+      "description": "mitigation_recommendations via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    },
+    {
+      "id": "regulatory_check",
+      "name": "Regulatory Check",
+      "description": "regulatory_check via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    },
+    {
+      "id": "analyze_demographic_parity",
+      "name": "Analyze Demographic Parity",
+      "description": "analyze_demographic_parity via bias-detection-mcp",
+      "tags": [
+        "mcp",
+        "compliance"
+      ]
+    }
+  ]
+}

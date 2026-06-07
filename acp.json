@@ -1,0 +1,24 @@
+{
+  "acpVersion": "0.1",
+  "agent": {
+    "name": "bias-detection-mcp",
+    "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic ana...",
+    "version": "1.2.0",
+    "provider": "MEOK AI Labs",
+    "interfaces": [
+      {
+        "type": "mcp",
+        "transport": "stdio",
+        "package": "bias-detection-mcp"
+      }
+    ],
+    "capabilities": [
+      "quick_scan",
+      "detect_bias",
+      "fairness_metrics",
+      "mitigation_recommendations",
+      "regulatory_check",
+      "analyze_demographic_parity"
+    ]
+  }
+}
