@@ -1075,6 +1075,137 @@ def regulatory_check(
 
 
 # ---------------------------------------------------------------------------
+# Tool: analyze_demographic_parity — EU AI Act Article 10 standalone
+# ---------------------------------------------------------------------------
+# Closes https://github.com/CSOAI-ORG/bias-detection-mcp/issues/1
+# The fairness_metrics tool computes statistical_parity_difference but
+# auditors increasingly ask for the demographic-parity RATIO explicitly,
+# evaluated against the EEOC 4/5ths threshold cited in Recital 72.
+
+@mcp.tool()
+def analyze_demographic_parity(predictions: str, protected_attribute: str = "", api_key: str = "") -> dict:
+    """Compute demographic parity ratios across protected groups (EU AI Act Article 10).
+
+    Args:
+        predictions: Comma-separated `group:prediction` pairs (prediction is 0 or 1).
+            Example: "male:1,female:0,male:1,female:1,male:0,female:0"
+        protected_attribute: Optional label of the protected attribute (gender, age, race…).
+            Pure documentation — used in the response narrative.
+        api_key: Optional MEOK API key (free tier gets a sanitised summary).
+
+    Returns:
+        Dict with:
+          - selection_rate_per_group: P(Y=1 | group=g) for each group
+          - demographic_parity_ratio: min(rate)/max(rate) — 1.0 = perfect parity
+          - passes_four_fifths_rule: ratio ≥ 0.80 (EEOC 4/5ths rule, cited by EU AI Act Recital 72)
+          - largest_gap: absolute difference between most- and least-selected groups
+          - severity_band: critical/concerning/borderline/good/excellent
+          - article_10_interpretation: how this evidence maps to AI Act Article 10(2)(f), 10(3), 10(4)
+          - remediation_actions: concrete next steps (data rebalancing, post-processing, etc.)
+
+    Behavior:
+        Read-only, stateless, idempotent. Free tier: 10/day. PAYG: £0.05/call. Pro: unlimited.
+
+    Example:
+        analyze_demographic_parity(
+            predictions="male:1,male:1,male:1,male:0,female:1,female:0,female:0,female:0",
+            protected_attribute="gender"
+        )
+        # → demographic_parity_ratio=0.33 (1/4 vs 3/4) → fails 4/5ths, "critical"
+    """
+    allowed, msg, tier = check_access(api_key)
+    if not allowed:
+        return {"error": msg, "upgrade_url": "https://meok.ai/api-keys"}
+    limit_err = _check_rate_limit("analyze_demographic_parity", tier)
+    if limit_err:
+        return {"error": "rate_limited", "message": limit_err}
+
+    group_preds: dict[str, list[int]] = defaultdict(list)
+    for pair in (predictions or "").split(","):
+        pair = pair.strip()
+        if ":" not in pair:
+            continue
+        group, pred = pair.rsplit(":", 1)
+        group = group.strip().lower()
+        try:
+            group_preds[group].append(int(pred.strip()))
+        except ValueError:
+            continue
+
+    if len(group_preds) < 2:
+        return {
+            "error": "invalid_input",
+            "message": "Need at least 2 distinct groups. Example: 'male:1,female:0,male:1,female:1'",
+            "received_groups": list(group_preds.keys()),
+        }
+
+    rates = {g: (sum(p) / len(p) if p else 0.0) for g, p in group_preds.items()}
+    rates_only = list(rates.values())
+    min_rate = min(rates_only)
+    max_rate = max(rates_only)
+    ratio = (min_rate / max_rate) if max_rate > 0 else 1.0
+    largest_gap = max_rate - min_rate
+    passes_four_fifths = ratio >= 0.80
+
+    if ratio < 0.50:
+        band, band_msg = "critical", "Severe disparity — likely fails EU AI Act Article 10(2)(f) data-quality requirements + multiple anti-discrimination grounds."
+    elif ratio < 0.80:
+        band, band_msg = "concerning", "Fails EEOC 4/5ths rule cited in EU AI Act Recital 72. Article 10 compliance gap — remediation evidence required."
+    elif ratio < 0.90:
+        band, band_msg = "borderline", "Passes 4/5ths but a Notified Body may require justification + ongoing monitoring per Article 15(1)."
+    elif ratio < 0.98:
+        band, band_msg = "good", "Within tight parity band. Standard Article 72 post-market monitoring sufficient."
+    else:
+        band, band_msg = "excellent", "Near-perfect demographic parity. Document the data-curation methodology in technical documentation per Annex IV §2.5.4."
+
+    remediation = []
+    if band in ("critical", "concerning"):
+        remediation = [
+            "Audit training data composition vs. real-world target population (Article 10(2)(c)).",
+            "Apply reweighting / oversampling for under-represented groups + retrain.",
+            "Or apply post-processing fairness mitigation (e.g. threshold optimisation per group).",
+            "Re-run analyze_demographic_parity after each mitigation iteration.",
+            "Document the gap + mitigation history in your Annex IV §2.5.4 technical documentation.",
+        ]
+    elif band == "borderline":
+        remediation = [
+            "Document the residual gap + business justification in technical documentation.",
+            "Add disparity drift detection to your post-market monitoring (Article 72).",
+            "Consider one round of threshold optimisation if costless to your product KPIs.",
+        ]
+
+    result = {
+        "metric": "demographic_parity",
+        "protected_attribute": protected_attribute or "(unspecified)",
+        "groups_evaluated": list(rates.keys()),
+        "selection_rate_per_group": {g: round(r, 4) for g, r in rates.items()},
+        "demographic_parity_ratio": round(ratio, 4),
+        "demographic_parity_difference": round(largest_gap, 4),
+        "passes_four_fifths_rule": passes_four_fifths,
+        "severity_band": band,
+        "severity_message": band_msg,
+        "remediation_actions": remediation,
+        "article_10_interpretation": {
+            "article": "Regulation (EU) 2024/1689 Article 10 + Recital 72",
+            "requirement": (
+                "Training/validation/test datasets must be examined for biases likely to affect health, "
+                "safety or fundamental rights. The EEOC 4/5ths rule (parity ratio ≥ 0.80) is the most "
+                "commonly accepted evidentiary threshold and is explicitly cited in Recital 72."
+            ),
+            "evidence_value": (
+                "This ratio + remediation history forms one of the 6 mandatory entries in Annex IV §2.5.4 "
+                "technical-documentation requirements."
+            ),
+        },
+        "tier": tier,
+        "next_step": "Pair with fairness_metrics for full equalised-odds + calibration analysis, then sign with attestation_api for auditor-defensible evidence.",
+        "meok_labs": "https://meok.ai",
+        "disclaimer": "Not legal advice — confirm scope with your Notified Body or qualified counsel.",
+    }
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 def main():
