@@ -1,54 +1,37 @@
-name: bias-detection-mcp
-description: 'AI Bias Detection and Fairness Assessment for AI agents. Capabilities:
-  quick bias scan, demographic bias detection, fairness metrics, mitigation recommendations,
-  regulatory compliance check. Built by MEOK AI Labs.'
-version: 1.0.0
-tools:
-- name: quick_scan
-  description: Describe an AI system, get instant bias risk assessment. No API key required.
-  parameters:
-  - name: description
-    type: string
-    required: true
-- name: detect_bias
-  description: Analyze text for demographic bias patterns, stereotyping, and unfair language.
-  parameters:
-  - name: model_output
-    type: string
-    required: true
-  - name: protected_attributes
-    type: string
-    required: false
-  - name: api_key
-    type: string
-    required: false
-- name: fairness_metrics
-  description: Calculate fairness metrics (disparate impact, equalized odds, statistical parity) from prediction data.
-  parameters:
-  - name: predictions
-    type: string
-    required: true
-  - name: ground_truth
-    type: string
-    required: false
-  - name: api_key
-    type: string
-    required: false
-- name: mitigation_recommendations
-  description: Get detailed remediation steps for a specific type of AI bias.
-  parameters:
-  - name: bias_type
-    type: string
-    required: true
-  - name: api_key
-    type: string
-    required: false
-- name: regulatory_check
-  description: Check bias requirements against EU AI Act Article 10 and NIST AI RMF MAP requirements.
-  parameters:
-  - name: jurisdiction
-    type: string
-    required: false
-  - name: api_key
-    type: string
-    required: false
+# smithery.yaml — Smithery (https://smithery.ai) submission payload
+# Repo: CSOAI-ORG/bias-detection-mcp
+# Generated: 2026-06-09
+# Transport: stdio (PyPI package, installed via uvx)
+# See: DISTRIBUTION_GAPS_2026-06-08.md for the channel strategy
+startCommand:
+  type: stdio
+  timeout: 120000
+  pingInterval: 5000
+  pingTimeout: 30000
+  configSchema:
+    type: object
+    required: []
+    properties:
+      apiKey:
+        type: string
+        description: "MEOK API key (optional; required for x402 paywalled tools)"
+        default: ""
+      x402PayTo:
+        type: string
+        description: "USDC address for x402 micropayments (default: meok.ai wallet)"
+        default: ""
+      logLevel:
+        type: string
+        description: "Log level (debug, info, warn, error)"
+        default: "info"
+    additionalProperties: false
+  commandFunction: |-
+    (config) => ({
+      command: 'uvx',
+      args: ['bias_detection'],
+      env: {
+        MEOK_API_KEY: config.apiKey || '',
+        X402_PAY_TO: config.x402PayTo || '',
+        MEOK_LOG_LEVEL: config.logLevel || 'info',
+      }
+    })
