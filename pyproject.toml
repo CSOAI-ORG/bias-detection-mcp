@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bias-detection-mcp"
-version = "1.2.3"
+version = "1.2.6"
 readme = "README.md"
 description = "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic analysis, fairness metrics, mitigation strategies, EU AI Act Article 10 compliance. Zero-config free tier. Built by MEOK AI Labs."
 license = {file = "LICENSE"}

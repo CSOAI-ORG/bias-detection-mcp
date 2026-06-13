@@ -22,6 +22,8 @@ from mcp.server.fastmcp import FastMCP
 # -- Authentication --------------------------------------------------------
 import os as _os
 import sys, os
+import urllib.request as _meter_urlreq
+import urllib.error as _meter_urlerr
 
 _MEOK_API_KEY = _os.environ.get("MEOK_API_KEY", "")
 _neural_net = None
@@ -48,7 +50,7 @@ def check_access(api_key=""):
 
 
 # -- Rate limiting ---------------------------------------------------------
-FREE_DAILY_LIMIT = 10
+FREE_DAILY_LIMIT = 50
 PRO_TIER_UNLIMITED = True  # Pro: $29/mo unlimited at https://meok.ai/mcp/bias-detection/pro
 _usage = defaultdict(list)  # type: Dict[str, List[datetime]]
 
@@ -299,6 +301,27 @@ mcp = FastMCP(
 # ---------------------------------------------------------------------------
 # Tool: quick_scan -- ZERO config, no API key, instant result
 # ---------------------------------------------------------------------------
+
+def _server_meter_check(api_key: str = "") -> dict:
+    """Calls the live /verify endpoint for server-side metering. Returns the JSON dict.
+    Fail-open: if /verify is unreachable or KV isn't configured, returns allowed=True
+    (so the local rate-limit in _check_rate_limit remains the safety net)."""
+    try:
+        data = json.dumps({"api_key": api_key, "tool": ""}).encode()
+        req = _meter_urlreq.Request(_METER_URL, data=data,
+            headers={"Content-Type": "application/json"}, method="POST")
+        with _meter_urlreq.urlopen(req, timeout=2.5) as r:
+            d = json.loads(r.read())
+            if isinstance(d, dict) and "allowed" in d:
+                return d
+    except Exception:
+        pass
+    return {"allowed": True, "tier": "anonymous", "remaining": 200, "upgrade_url": "https://meok.ai/pricing"}
+
+
+_METER_URL = "https://proofof.ai/verify"
+
+
 @mcp.tool()
 def quick_scan(description: str) -> dict:
     """Describe an AI system in one sentence -> instant bias risk assessment. No API key required.
@@ -387,9 +410,20 @@ def quick_scan(description: str) -> dict:
         if _match_keywords(description, binfo["indicators"]):
             bias_types_detected.append(binfo["name"])
 
+    # NEVER FALSE-CLEAR: if nothing was recognised, this is NOT a low-risk
+    # clearance — flag for review rather than confidently returning "low".
+    if risk_level == "low" and not matched_risk_indicators and not protected_attrs and not bias_types_detected:
+        risk_level = "unknown"
+
     # Build recommendations
     top_actions = []  # type: List[str]
-    if risk_level == "high":
+    if risk_level == "unknown":
+        top_actions = [
+            "No bias indicators auto-detected — this is NOT a clearance or a low-risk verdict",
+            "Run detect_bias on real model outputs and describe the use-case more specifically",
+            "Treat as potentially in-scope until a manual fairness review confirms otherwise",
+        ]
+    elif risk_level == "high":
         top_actions = [
             "Conduct a full fairness audit with disaggregated metrics before deployment",
             "Implement EU AI Act Article 10 data governance (bias examination mandatory for high-risk AI)",
@@ -420,6 +454,8 @@ def quick_scan(description: str) -> dict:
             if risk_level == "high"
             else "MODERATE -- transparency obligations may apply"
             if risk_level == "moderate"
+            else "UNKNOWN -- not auto-classified; manual review required before relying on this"
+            if risk_level == "unknown"
             else "LOW -- voluntary codes of conduct encouraged"
         ),
         "next_step": "Use detect_bias for text-level analysis or fairness_metrics for quantitative assessment",
@@ -501,7 +537,7 @@ def detect_bias(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
+                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
                 "price": "From GBP 29/month -- includes unlimited bias analysis",
             },
             "free_alternative": "Use quick_scan (free, no API key needed) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -658,7 +694,7 @@ def fairness_metrics(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
+                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
                 "price": "From GBP 29/month -- includes unlimited fairness metrics",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -877,7 +913,7 @@ def mitigation_recommendations(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/5kQ6oJ0xS3ce8sl7ew8k91j",
+                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
                 "price": "From GBP 29/month -- includes unlimited remediation plans",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",

@@ -1,0 +1,134 @@
+{
+  "name": "Bias Detection Mcp",
+  "version": "1.2.0",
+  "url": "https://mcp.meok.ai/bias-detection-mcp/a2a",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "protocolVersion": "0.3.0",
+  "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic analysis, fairness metrics, mitigation strategies, EU AI Act Article 10 compliance. Zero-config free tier. Built by MEOK AI Labs.",
+  "provider": {
+    "organization": "MEOK AI LABS",
+    "url": "https://meok.ai"
+  },
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "quick_scan",
+      "name": "Quick Scan",
+      "description": "Quick Scan — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "detect_bias",
+      "name": "Detect Bias",
+      "description": "Detect Bias — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "fairness_metrics",
+      "name": "Fairness Metrics",
+      "description": "Fairness Metrics — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "mitigation_recommendations",
+      "name": "Mitigation Recommendations",
+      "description": "Mitigation Recommendations — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "regulatory_check",
+      "name": "Regulatory Check",
+      "description": "Regulatory Check — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "analyze_demographic_parity",
+      "name": "Analyze Demographic Parity",
+      "description": "Analyze Demographic Parity — a tool of the bias-detection-mcp MCP.",
+      "tags": [
+        "compliance",
+        "bias"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    }
+  ],
+  "documentationUrl": "https://meok.ai",
+  "x-meok": {
+    "mcp_name": "bias-detection-mcp",
+    "verifier": "https://proofof.ai/verify",
+    "governed_by": "CSOAI 52-article charter"
+  }
+}
