@@ -1,22 +1,83 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.CSOAI-ORG/bias-detection-mcp",
-  "version": "1.2.6",
-  "description": "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic ana...",
+  "name": "CSOAI-ORG/bias-detection-mcp",
+  "title": "Bias Detection",
+  "version": "2.1.0",
+  "description": "AI bias detection and fairness assessment across 7 protected characteristics. Part of the MEOK 28-hive MCP governance mesh. 13 unified frameworks + attestation chain.",
+  "websiteUrl": "https://meok.ai/bias-detection-mcp",
   "repository": {
+    "type": "git",
     "url": "https://github.com/CSOAI-ORG/bias-detection-mcp",
-    "source": "github",
-    "id": "1212478219"
+    "source": "https://github.com/CSOAI-ORG/bias-detection-mcp"
   },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/CSOAI-ORG/bias-detection-mcp/main/assets/icon.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": [
+        "256x256"
+      ],
+      "theme": "dark"
+    }
+  ],
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "bias-detection-mcp",
-      "version": "1.2.6",
-      "runtimeHint": "python",
+      "version": "2.1.0",
       "transport": {
         "type": "stdio"
       }
     }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "category": "ai-governance",
+      "subcategories": [
+        "compliance",
+        "audit"
+      ],
+      "tier": "flagship",
+      "openSsfScorecard": "7.06/10"
+    }
+  },
+  "metadata": {
+    "publisher": "MEOK AI Labs",
+    "categories": [
+      "compliance",
+      "ai-governance"
+    ]
+  },
+  "examples": [
+    {
+      "name": "Quick scan via bias-detection-mcp",
+      "description": "Run a compliance check using the MCP server.",
+      "input": {
+        "tool": "quick_scan",
+        "arguments": {
+          "system": "example"
+        }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "https://docs.meok.ai/bias-detection-mcp/",
+      "name": "bias-detection-mcp documentation",
+      "mimeType": "text/html"
+    },
+    {
+      "uri": "https://github.com/CSOAI-ORG/bias-detection-mcp",
+      "name": "bias-detection-mcp on GitHub",
+      "mimeType": "text/html"
+    }
+  ],
+  "publisher": {
+    "name": "CSOAI Ltd",
+    "url": "https://csoai.org"
+  },
+  "categories": [
+    "compliance",
+    "ai-governance"
   ]
 }

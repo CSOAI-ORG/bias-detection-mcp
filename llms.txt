@@ -1,54 +1,33 @@
 # bias-detection-mcp
-> AI bias detection and fairness assessment. Covers demographic bias scanning, fairness metrics, mitigation strategies, and regulatory compliance (EU AI Act Article 10, NIST AI RMF). By MEOK AI Labs.
+> Bias Detection AI bias detection and fairness assessment across 7 protected characteristics. By MEOK AI Labs.
 
 ## Install
 pip install bias-detection-mcp
 
 ## Auth
-- Free tier: 10 calls/day, no API key needed (quick_scan and regulatory_check fully free)
+- Free tier: 100 calls/month, no API key needed
 - Pro tier: unlimited, set MEOK_API_KEY env var
-- All tools are read-only and stateless
 
 ## Tools
 
 ### quick_scan
-Instant bias risk assessment from a one-sentence AI system description. No API key required.
-- `description` (str, required): Describe your AI system in one sentence
-- Returns: bias_risk_level (high/moderate/low), bias_risk_score (0-1), matched_risk_indicators, protected_attributes_detected, bias_types_to_watch, top_3_actions, eu_ai_act_relevance
-- Use when: Quick triage of bias risk before deeper analysis
+Instant compliance check from a system description. No API key required.
+- `system` (str): One-sentence AI system description
+- Returns: compliance_status, top_obligations
 
-### detect_bias
-Analyze text for demographic bias patterns, stereotyping, and unfair language (Pro tier).
-- `model_output` (str, required): AI-generated text to analyze
-- `protected_attributes` (str, optional): Comma-separated attributes to check (e.g. "race,gender,age"), auto-detected if empty
-- `api_key` (str, optional): MEOK API key
-- Returns: overall_bias_risk, bias_score, pattern_matches (8 bias types), protected_attributes_mentioned with EU Charter refs, flagged_sentences with per-sentence scores
-- Use when: Auditing AI model outputs for bias before deployment
+### deadline_check
+Regulatory deadlines with days remaining.
+- Returns: List of dates with days_remaining
 
-### fairness_metrics
-Calculate quantitative fairness metrics from prediction data (Pro tier).
-- `predictions` (str, required): Comma-separated group:prediction pairs (e.g. "male:1,female:0,male:1")
-- `ground_truth` (str, optional): Same format for actual outcomes, enables equalized odds
-- `api_key` (str, optional): MEOK API key
-- Returns: disparate_impact ratio + 4/5ths rule pass/fail, statistical_parity difference, equalized_odds (TPR/FPR per group), per-group selection rates and accuracy
-- Use when: Measuring fairness of a classifier across demographic groups
+### framework_scan
+Detailed compliance assessment.
+- `framework` (str, required): BIAS or other framework
+- `system` (str, required): System description
+- Returns: compliance_score, gaps, remediation
 
-### mitigation_recommendations
-Detailed remediation steps for a specific bias type (Pro tier).
-- `bias_type` (str, required): One of: selection, measurement, confirmation, automation, aggregation, representation, evaluation, historical
-- `api_key` (str, optional): MEOK API key
-- Returns: Specific mitigations (5 per type), pre/in/post-processing framework, EU AI Act documentation requirements, monitoring plan, recommended tools (AIF360, Fairlearn, etc.)
-- Use when: Building a remediation plan after bias is detected
+## Endpoints
+- MCP: https://gateway.meok.ai/mcp
+- A2A: https://gateway.meok.ai/.well-known/agent-card.json
 
-### regulatory_check
-Bias regulatory requirements for EU, US NIST, or UK jurisdictions. Fully free.
-- `jurisdiction` (str, optional, default "eu"): "eu" | "us_nist" | "uk" | "all"
-- `api_key` (str, optional): MEOK API key
-- Returns: Framework-specific requirements (EU AI Act Articles 10/14/15, NIST AI RMF MAP/MEASURE/MANAGE, UK principles), 8-item bias compliance checklist with cross-references
-- Use when: Understanding which bias requirements apply in your jurisdiction
-
-## Quick Example
-```python
-result = quick_scan(description="AI hiring tool that screens resumes for tech roles")
-# Returns: bias_risk_level="high", eu_ai_act_relevance="HIGH"
-```
+## License
+MIT — https://github.com/CSOAI-ORG/bias-detection-mcp/blob/main/LICENSE
