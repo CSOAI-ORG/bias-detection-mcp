@@ -1,0 +1,17 @@
+{
+  "name": "knowing_yucca/bias-detection-mcp",
+  "title": "MEOK Bias Detection Mcp",
+  "description": "Compliance MCP server: bias-detection-mcp",
+  "readme": "# MEOK Bias Detection Mcp\n\nCompliance MCP from MEOK AI.",
+  "categories": [
+    "AI",
+    "Compliance",
+    "Governance"
+  ],
+  "defaultRunInput": {
+    "tool": "quick_scan",
+    "arguments": {
+      "system": "example"
+    }
+  }
+}
