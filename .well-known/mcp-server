@@ -1,0 +1,5 @@
+{
+  "name": "bias-detection-mcp",
+  "description": "AI bias detection and fairness assessment across 7 protected characteristics.",
+  "version": "2.1.0"
+}
