@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bias-detection-mcp"
-version = "1.2.6"
+version = "1.2.7"
 readme = "README.md"
 description = "AI bias detection and fairness assessment for AI agents. Instant bias risk scan, demographic analysis, fairness metrics, mitigation strategies, EU AI Act Article 10 compliance. Zero-config free tier. Built by MEOK AI Labs."
 license = {file = "LICENSE"}
@@ -29,3 +29,22 @@ only-include = ["auth_middleware.py", "server.py"]
 
 [project.scripts]
 bias-detection-mcp = "server:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N"]
+ignore = ["E501"]
+
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_Configs = true
+disallow_untyped_defs = true
+
