@@ -51,7 +51,7 @@ def check_access(api_key=""):
 
 # -- Rate limiting ---------------------------------------------------------
 FREE_DAILY_LIMIT = 50
-PRO_TIER_UNLIMITED = True  # Pro: $29/mo unlimited at https://meok.ai/mcp/bias-detection/pro
+PRO_TIER_UNLIMITED = True
 _usage = defaultdict(list)  # type: Dict[str, List[datetime]]
 
 
@@ -66,7 +66,7 @@ def _check_rate_limit(caller="anonymous", tier="free"):
     if len(_usage[caller]) >= FREE_DAILY_LIMIT:
         return (
             "Free tier limit reached ({}/day). "
-            "Upgrade to MEOK AI Labs Pro for unlimited access at $29/mo: "
+            "Upgrade to MEOK AI Labs Pro for unlimited access at a per-job quote: "
             "https://meok.ai/mcp/bias-detection/pro".format(FREE_DAILY_LIMIT)
         )
     _usage[caller].append(now)
@@ -537,7 +537,7 @@ def detect_bias(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
+                "stripe_checkout": "https://meok.ai/pricing",
                 "price": "From GBP 29/month -- includes unlimited bias analysis",
             },
             "free_alternative": "Use quick_scan (free, no API key needed) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -694,7 +694,7 @@ def fairness_metrics(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
+                "stripe_checkout": "https://meok.ai/pricing",
                 "price": "From GBP 29/month -- includes unlimited fairness metrics",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",
@@ -913,7 +913,7 @@ def mitigation_recommendations(
             },
             "upgrade": {
                 "url": "https://meok.ai/api-keys",
-                "stripe_checkout": "https://buy.stripe.com/aFa7sNcgAdQS0ZT1Uc8k91t",
+                "stripe_checkout": "https://meok.ai/pricing",
                 "price": "From GBP 29/month -- includes unlimited remediation plans",
             },
             "free_alternative": "Use quick_scan (free) for instant risk assessment, or regulatory_check for compliance requirements.",

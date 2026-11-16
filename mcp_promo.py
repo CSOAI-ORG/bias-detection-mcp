@@ -11,7 +11,7 @@ def _show_onboarding():
     print("🔐 MEOK AI — Enterprise Compliance Tools via MCP")
     print("="*60)
     print("You just installed a MEOK MCP server.")
-    print("Free tier: 100 calls/day | Pro: $99/mo | Enterprise: $499/mo")
+    print("Free tier: 100 calls/day | Pro: a per-job quote | Enterprise: a per-job quote")
     print("")
     print("👉 Dashboard: https://meok-saas.vercel.app/dashboard")
     print("👉 Get API key: https://meok-saas.vercel.app/signup")
